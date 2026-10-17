@@ -1,0 +1,58 @@
+@api = http://localhost:3000
+
+### 1. Saúde: 200
+GET {{api}}/health
+
+### 2. Identificação: 200
+GET {{api}}/
+
+### 3. Oito atrações: 200
+GET {{api}}/atracoes
+
+### 4. Igreja Matriz: 200
+GET {{api}}/atracoes/1
+
+### 5. Atração inexistente: 404
+GET {{api}}/atracoes/999
+
+### 6. Categoria: três atrações
+GET {{api}}/atracoes?categoria=Natureza%20e%20Aventura
+
+### 7. Tag: duas atrações
+GET {{api}}/atracoes?tag=cachoeira
+
+### 8. Filtros combinados: três atrações
+GET {{api}}/atracoes?categoria=natureza%20e%20aventura&tag=AVENTURA
+
+### 9. Criar: 201, id 9 e Location
+POST {{api}}/atracoes
+Content-Type: application/json
+
+{"nome":"Parque de Lazer","categoria":"Lazer","descricao":"Espaço destinado ao lazer e à convivência.","tags":["lazer","família"]}
+
+### 10. Campos obrigatórios: 400
+POST {{api}}/atracoes
+Content-Type: application/json
+
+{"nome":""}
+
+### 11. Substituir: 200
+PUT {{api}}/atracoes/1
+Content-Type: application/json
+
+{"nome":"Igreja Matriz","categoria":"Histórico e Urbano","descricao":"Marco zero da cidade.","localizacao":{"cidade":"Balsas","estado":"MA"},"distanciaCentroKm":0,"tags":["história"]}
+
+### 12. Remover: 204 sem corpo
+DELETE {{api}}/atracoes/3
+
+### 13. Remover novamente: 404
+DELETE {{api}}/atracoes/3
+
+### 14. Rota inexistente: 404 em JSON
+GET {{api}}/abc
+
+### JSON malformado: 400
+POST {{api}}/atracoes
+Content-Type: application/json
+
+{"nome":
