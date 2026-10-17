@@ -15,6 +15,18 @@ Para executar sem reinício automático, use `npm start`. No PowerShell, caso a 
 
 A API responde em http://localhost:3000. A variável de ambiente `PORT` permite escolher outra porta. O arquivo `.env` não é carregado automaticamente.
 
+## Publicar no Render
+
+Configure Node.js 22.12 ou superior, `DATABASE_URL` com a URL do Neon e `NODE_ENV=production` nas variáveis de ambiente do Render. Não publique o arquivo `.env`.
+
+- Build Command: `npm ci --include=dev && npm run build`
+- Start Command: `npm run start`
+- Health Check Path: `/health`
+
+O build gera o Prisma Client usando `prisma7.config.ts`. Para aplicar as migrações ao banco, execute `npm run migrate:deploy` em uma etapa de implantação com as dependências de desenvolvimento instaladas. Esse comando altera o esquema do banco; o start não executa migrações nem seed automaticamente.
+
+O servidor utiliza a porta fornecida pelo Render e escuta em `0.0.0.0`. As rotas atuais continuam usando JSON em memória; a configuração do Prisma está disponível em `src/prisma.js`, mas não é utilizada por essas rotas. `/health` verifica a API, sem consultar o banco.
+
 ## Endpoints
 
 | Método | Caminho | Resposta |

@@ -4,6 +4,8 @@
   "description": "API REST de experiências turísticas em Balsas-MA",
   "private": true,
   "scripts": {
+    "build": "prisma generate --config prisma7.config.ts",
+    "migrate:deploy": "prisma migrate deploy --config prisma7.config.ts",
     "start": "node src/app.js",
     "dev": "node --watch src/app.js",
     "seed": "node prisma/seed.js"
